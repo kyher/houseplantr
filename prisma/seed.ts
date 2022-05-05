@@ -24,18 +24,18 @@ async function seed() {
     },
   });
 
-  await prisma.note.create({
+  await prisma.plant.create({
     data: {
-      title: "My first note",
-      body: "Hello, world!",
+      name: "Monstera",
+      location: "Living Room",
       userId: user.id,
     },
   });
 
-  await prisma.note.create({
+  await prisma.plant.create({
     data: {
-      title: "My second note",
-      body: "Hello, world!",
+      name: "Lily",
+      location: "Bedroom",
       userId: user.id,
     },
   });

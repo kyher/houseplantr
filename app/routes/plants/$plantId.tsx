@@ -3,42 +3,42 @@ import { json, redirect } from "@remix-run/node";
 import { Form, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import type { Note } from "~/models/note.server";
-import { deleteNote } from "~/models/note.server";
-import { getNote } from "~/models/note.server";
+import type { Plant } from "~/models/plant.server";
+import { deletePlant } from "~/models/plant.server";
+import { getPlant } from "~/models/plant.server";
 import { requireUserId } from "~/session.server";
 
 type LoaderData = {
-  note: Note;
+  plant: Plant;
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await requireUserId(request);
-  invariant(params.noteId, "noteId not found");
+  invariant(params.plantId, "plantId not found");
 
-  const note = await getNote({ userId, id: params.noteId });
-  if (!note) {
+  const plant = await getPlant({ userId, id: params.plantId });
+  if (!plant) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json<LoaderData>({ note });
+  return json<LoaderData>({ plant });
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
   const userId = await requireUserId(request);
-  invariant(params.noteId, "noteId not found");
+  invariant(params.plantId, "plantId not found");
 
-  await deleteNote({ userId, id: params.noteId });
+  await deletePlant({ userId, id: params.plantId });
 
-  return redirect("/notes");
+  return redirect("/plants");
 };
 
-export default function NoteDetailsPage() {
+export default function PlantDetailsPage() {
   const data = useLoaderData() as LoaderData;
 
   return (
     <div>
-      <h3 className="text-2xl font-bold">{data.note.title}</h3>
-      <p className="py-6">{data.note.body}</p>
+      <h3 className="text-2xl font-bold">{data.plant.name}</h3>
+      <p className="py-6">{data.plant.location}</p>
       <hr className="my-4" />
       <Form method="post">
         <button
@@ -62,7 +62,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   if (caught.status === 404) {
-    return <div>Note not found</div>;
+    return <div>Plant not found</div>;
   }
 
   throw new Error(`Unexpected caught response with status: ${caught.status}`);

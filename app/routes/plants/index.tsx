@@ -1,11 +1,11 @@
 import { Link } from "@remix-run/react";
 
-export default function NoteIndexPage() {
+export default function PlantIndexPage() {
   return (
     <p>
-      No note selected. Select a note on the left, or{" "}
+      No plant selected. Select a plant on the left, or{" "}
       <Link to="new" className="text-blue-500 underline">
-        create a new note.
+        create a new plant.
       </Link>
     </p>
   );

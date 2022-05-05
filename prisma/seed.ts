@@ -26,16 +26,16 @@ async function seed() {
 
   await prisma.plant.create({
     data: {
-      name: 'Monstera',
-      location: 'Living Room',
+      name: "Monstera",
+      location: "Living Room",
       userId: user.id,
     },
   });
 
   await prisma.plant.create({
     data: {
-      name: 'Lily',
-      location: 'Bedroom',
+      name: "Lily",
+      location: "Bedroom",
       userId: user.id,
     },
   });

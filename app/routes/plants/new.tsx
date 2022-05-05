@@ -42,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function NewPlantPage() {
   const actionData = useActionData() as ActionData;
   const nameRef = React.useRef<HTMLInputElement>(null);
-  const locationRef = React.useRef<HTMLTextAreaElement>(null);
+  const locationRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     if (actionData?.errors?.name) {

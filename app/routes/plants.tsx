@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({ plantListItems });
 };
 
-export default function plantsPage() {
+export default function PlantsPage() {
   const data = useLoaderData() as LoaderData;
   const user = useUser();
 

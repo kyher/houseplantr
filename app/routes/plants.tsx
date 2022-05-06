@@ -57,7 +57,7 @@ export default function PlantsPage() {
                     }
                     to={plant.id}
                   >
-                    📝 {plant.name}
+                    🪴{plant.name}
                   </NavLink>
                 </li>
               ))}

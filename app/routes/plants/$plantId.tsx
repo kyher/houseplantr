@@ -38,7 +38,7 @@ export default function PlantDetailsPage() {
   return (
     <div>
       <h3 className="text-2xl font-bold">{data.plant.name}</h3>
-      <p className="py-6">{data.plant.location}</p>
+      <p className="py-6"><strong>Location:</strong> {data.plant.location}</p>
       <hr className="my-4" />
       <Form method="post">
         <button

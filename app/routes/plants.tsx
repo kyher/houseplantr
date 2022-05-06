@@ -37,7 +37,7 @@ export default function PlantsPage() {
       </header>
 
       <main className="flex h-full bg-white">
-        <div className="h-full w-80 border-r bg-gray-50">
+        <div className="h-full w-1/3 border-r bg-gray-50">
           <Link to="new" className="block p-4 text-xl text-green-500">
             + New plant
           </Link>

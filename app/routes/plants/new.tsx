@@ -10,6 +10,7 @@ type ActionData = {
   errors?: {
     name?: string;
     location?: string;
+    purchasedAt?: string;
   };
 };
 
@@ -19,6 +20,8 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const location = formData.get("location");
+  const purchasedAtFormData = formData.get("purchasedAt")
+  let purchasedAt;
 
   if (typeof name !== "string" || name.length === 0) {
     return json<ActionData>(
@@ -34,7 +37,17 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  const plant = await createPlant({ name, location, userId });
+  if(typeof purchasedAtFormData !== 'string' || purchasedAtFormData.length === 0){
+    return json<ActionData>(
+      { errors: { purchasedAt: "Purchased at is required" } },
+      { status: 400 }
+    );
+  }
+  else {
+    purchasedAt = new Date(purchasedAtFormData)
+  }
+  
+  const plant = await createPlant({ name, location, purchasedAt, userId });
 
   return redirect(`/plants/${plant.id}`);
 };
@@ -43,12 +56,16 @@ export default function NewPlantPage() {
   const actionData = useActionData() as ActionData;
   const nameRef = React.useRef<HTMLInputElement>(null);
   const locationRef = React.useRef<HTMLInputElement>(null);
+  const purchasedAtRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     if (actionData?.errors?.name) {
       nameRef.current?.focus();
     } else if (actionData?.errors?.location) {
       locationRef.current?.focus();
+    }
+    else if (actionData?.errors?.purchasedAt) {
+      purchasedAtRef.current?.focus();
     }
   }, [actionData]);
 
@@ -67,6 +84,7 @@ export default function NewPlantPage() {
           <span>Name: </span>
           <input
             ref={nameRef}
+            data-testid='name'
             name="name"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.name ? true : undefined}
@@ -87,6 +105,7 @@ export default function NewPlantPage() {
           <span>Location: </span>
           <input
             ref={locationRef}
+            data-testid='location'
             name="location"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.location ? true : undefined}
@@ -102,10 +121,32 @@ export default function NewPlantPage() {
         )}
       </div>
 
+      <div>
+        <label className="flex w-full flex-col gap-1">
+          <span>Purchased At: </span>
+          <input
+            ref={purchasedAtRef}
+            data-testid='purchasedAt'
+            type="date"
+            name="purchasedAt"
+            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
+            aria-invalid={actionData?.errors?.purchasedAt ? true : undefined}
+            aria-errormessage={
+              actionData?.errors?.purchasedAt ? "purchasedAt-error" : undefined
+            }
+          />
+        </label>
+        {actionData?.errors?.purchasedAt && (
+          <div className="pt-1 text-red-700" id="purchasedAt-error">
+            {actionData.errors.purchasedAt}
+          </div>
+        )}
+      </div>
+
       <div className="text-right">
         <button
           type="submit"
-          className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+          className="rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
         >
           Save
         </button>

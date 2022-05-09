@@ -1,5 +1,7 @@
 import faker from "@faker-js/faker";
 
+import {nameInput, locationInput, purchasedAtInput} from '../fixtures/testDataIds.json'
+
 describe("smoke tests", () => {
   afterEach(() => {
     cy.cleanupUser();
@@ -28,6 +30,7 @@ describe("smoke tests", () => {
     const testPlant = {
       name: faker.lorem.words(1),
       location: faker.lorem.words(1),
+      purchasedAt: '2022-05-09'
     };
     cy.login();
     cy.visit("/");
@@ -37,8 +40,9 @@ describe("smoke tests", () => {
 
     cy.findByRole("link", { name: /\+ new plant/i }).click();
 
-    cy.findByRole("textbox", { name: /name/i }).type(testPlant.name);
-    cy.findByRole("textbox", { name: /location/i }).type(testPlant.location);
+    cy.get(nameInput).type(testPlant.name);
+    cy.get(locationInput).type(testPlant.location);
+    cy.get(purchasedAtInput).type(testPlant.purchasedAt);
     cy.findByRole("button", { name: /save/i }).click();
 
     cy.findByRole("button", { name: /delete/i }).click();

@@ -1,0 +1,5 @@
+{
+  "nameInput": "[data-testid='name']",
+  "locationInput": "[data-testid='location']",
+  "purchasedAtInput": "[data-testid='purchasedAt']"
+}

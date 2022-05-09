@@ -39,11 +39,12 @@ export default function PlantDetailsPage() {
     <div>
       <h3 className="text-2xl font-bold">{data.plant.name}</h3>
       <p className="py-6"><strong>Location:</strong> {data.plant.location}</p>
+      <p className="py-6"><strong>Purchased At:</strong> {new Date(data.plant.purchasedAt).toLocaleDateString()}</p>
       <hr className="my-4" />
       <Form method="post">
         <button
           type="submit"
-          className="rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+          className="rounded bg-green-500  py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
         >
           Delete
         </button>

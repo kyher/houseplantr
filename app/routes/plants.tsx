@@ -3,7 +3,6 @@ import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
 import { requireUserId } from "~/session.server";
-import { useUser } from "~/utils";
 import { getPlantListItems } from "~/models/plant.server";
 
 type LoaderData = {
@@ -18,7 +17,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function PlantsPage() {
   const data = useLoaderData() as LoaderData;
-  const user = useUser();
 
   return (
     <div className="flex h-full min-h-screen flex-col">

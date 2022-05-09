@@ -26,9 +26,10 @@ model Password {
 }
 
 model Plant {
-  id       String @id @default(cuid())
-  name     String
-  location String
+  id          String   @id @default(cuid())
+  name        String
+  location    String
+  purchasedAt DateTime @default(now())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

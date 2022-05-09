@@ -26,14 +26,16 @@ export function getPlantListItems({ userId }: { userId: User["id"] }) {
 export function createPlant({
   name,
   location,
+  purchasedAt,
   userId,
-}: Pick<Plant, "name" | "location"> & {
+}: Pick<Plant, "name" | "location" | "purchasedAt"> & {
   userId: User["id"];
 }) {
   return prisma.plant.create({
     data: {
       name,
       location,
+      purchasedAt,
       user: {
         connect: {
           id: userId,

@@ -36,4 +36,18 @@ model Plant {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
+
+  waterings Watering[]
+}
+
+model Watering {
+  id String @id @default(cuid())
+
+  wateredDate DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  plant   Plant  @relation(fields: [plantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plantId String
 }

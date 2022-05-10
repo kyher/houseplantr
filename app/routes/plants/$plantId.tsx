@@ -1,6 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useCatch, useLoaderData } from "@remix-run/react";
+import { useState } from "react";
 import invariant from "tiny-invariant";
 
 import type { Plant } from "~/models/plant.server";
@@ -35,6 +36,8 @@ export const action: ActionFunction = async ({ request, params }) => {
 export default function PlantDetailsPage() {
   const data = useLoaderData() as LoaderData;
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
       <h3 className="text-2xl font-bold">{data.plant.name}</h3>
@@ -49,6 +52,31 @@ export default function PlantDetailsPage() {
           Delete
         </button>
       </Form>
+      <button
+          onClick={() => setShowModal(true)}
+          className="rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+        >
+          Add Watering
+        </button>
+
+      {showModal && 
+      
+      
+    <div id="popup-modal" className="overflow-y-auto overflow-x-hidden z-50 md:inset-0 h-modal md:h-full">
+    <div className="relative p-4 w-full max-w-md h-full md:h-auto">
+        <div className="relative rounded-lg shadow bg-green-800">
+            <div className="p-6 text-center">
+                <h3 className="mb-5 text-lg text-white">Enter a watering date:</h3>
+                <input className='w-full' type='date' />
+                <button data-modal-toggle="popup-modal" type="button" className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Add
+                </button>
+                <button  onClick={() => setShowModal(false)} data-modal-toggle="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
     </div>
   );
 }

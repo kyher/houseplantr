@@ -20,7 +20,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const location = formData.get("location");
-  const purchasedAtFormData = formData.get("purchasedAt")
+  const purchasedAtFormData = formData.get("purchasedAt");
   let purchasedAt;
 
   if (typeof name !== "string" || name.length === 0) {
@@ -37,16 +37,18 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  if(typeof purchasedAtFormData !== 'string' || purchasedAtFormData.length === 0){
+  if (
+    typeof purchasedAtFormData !== "string" ||
+    purchasedAtFormData.length === 0
+  ) {
     return json<ActionData>(
       { errors: { purchasedAt: "Purchased at is required" } },
       { status: 400 }
     );
+  } else {
+    purchasedAt = new Date(purchasedAtFormData);
   }
-  else {
-    purchasedAt = new Date(purchasedAtFormData)
-  }
-  
+
   const plant = await createPlant({ name, location, purchasedAt, userId });
 
   return redirect(`/plants/${plant.id}`);
@@ -63,8 +65,7 @@ export default function NewPlantPage() {
       nameRef.current?.focus();
     } else if (actionData?.errors?.location) {
       locationRef.current?.focus();
-    }
-    else if (actionData?.errors?.purchasedAt) {
+    } else if (actionData?.errors?.purchasedAt) {
       purchasedAtRef.current?.focus();
     }
   }, [actionData]);
@@ -84,7 +85,7 @@ export default function NewPlantPage() {
           <span>Name: </span>
           <input
             ref={nameRef}
-            data-testid='name'
+            data-testid="name"
             name="name"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.name ? true : undefined}
@@ -105,7 +106,7 @@ export default function NewPlantPage() {
           <span>Location: </span>
           <input
             ref={locationRef}
-            data-testid='location'
+            data-testid="location"
             name="location"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.location ? true : undefined}
@@ -126,7 +127,7 @@ export default function NewPlantPage() {
           <span>Purchased At: </span>
           <input
             ref={purchasedAtRef}
-            data-testid='purchasedAt'
+            data-testid="purchasedAt"
             type="date"
             name="purchasedAt"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"

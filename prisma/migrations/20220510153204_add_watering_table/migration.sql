@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Watering" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "wateredDate" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "plantId" TEXT NOT NULL,
+    CONSTRAINT "Watering_plantId_fkey" FOREIGN KEY ("plantId") REFERENCES "Plant" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);

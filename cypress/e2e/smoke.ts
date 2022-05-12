@@ -1,6 +1,10 @@
 import faker from "@faker-js/faker";
 
-import {nameInput, locationInput, purchasedAtInput} from '../fixtures/testDataIds.json'
+import {
+  nameInput,
+  locationInput,
+  purchasedAtInput,
+} from "../fixtures/testDataIds.json";
 
 describe("smoke tests", () => {
   afterEach(() => {
@@ -30,7 +34,7 @@ describe("smoke tests", () => {
     const testPlant = {
       name: faker.lorem.words(1),
       location: faker.lorem.words(1),
-      purchasedAt: '2022-05-09'
+      purchasedAt: "2022-05-09",
     };
     cy.login();
     cy.visit("/");

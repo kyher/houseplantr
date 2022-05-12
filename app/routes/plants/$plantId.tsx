@@ -3,7 +3,7 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { Plant } from "~/models/plant.server";
+import type { Plant } from "~/models/plant.server";
 import { deletePlant } from "~/models/plant.server";
 import { getPlant } from "~/models/plant.server";
 import { getWateringListItems } from "~/models/watering.server";

@@ -4,6 +4,7 @@ import { json, redirect } from "@remix-run/node";
 import { createWatering } from "~/models/watering.server";
 import { Form, useActionData } from "@remix-run/react";
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 type ActionData = {
   errors?: {
@@ -64,6 +65,14 @@ export default function AddWateringPage() {
         >
           Add
         </button>
+        <Link to='../'>
+          <button
+            data-testid="submitWatering"
+            className="mr-2 inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800"
+          >
+            Cancel
+          </button>
+        </Link>
       </Form>
       {actionData?.errors?.wateredAt && (
         <div className="pt-1 text-red-700" id="name-error">

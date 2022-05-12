@@ -50,7 +50,7 @@ export default function PlantDetailsPage() {
       </p>
       <p className="py-6">
         <strong>Purchased At:</strong>{" "}
-        {new Date(data.plant.purchasedAt).toLocaleDateString()}
+        {new Date(data.plant.purchasedAt).toLocaleDateString('en-GB')}
       </p>
       <p className="py-6">
         <strong>Waterings:</strong>{" "}
@@ -59,7 +59,7 @@ export default function PlantDetailsPage() {
         {data.wateringListItems.length
           ? data.wateringListItems.map((watering) => (
               <li key={watering.id}>
-                {new Date(watering.wateredDate).toLocaleDateString()}
+                {new Date(watering.wateredDate).toLocaleDateString('en-GB')}
               </li>
             ))
           : "No waterings logged for this plant."}

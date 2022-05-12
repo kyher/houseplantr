@@ -4,6 +4,9 @@ import {
   nameInput,
   locationInput,
   purchasedAtInput,
+  wateredAtInput,
+  addWateringBtn,
+  submitWateringBtn,
 } from "../fixtures/testDataIds.json";
 
 describe("smoke tests", () => {
@@ -52,5 +55,35 @@ describe("smoke tests", () => {
     cy.findByRole("button", { name: /delete/i }).click();
 
     cy.findByText("No plants yet");
+  });
+  it("should allow you to add waterings", () => {
+    const testPlant = {
+      name: faker.lorem.words(1),
+      location: faker.lorem.words(1),
+      purchasedAt: "2022-05-09",
+      wateredAt: "2022-05-12",
+    };
+    cy.login();
+    cy.visit("/");
+
+    cy.findByRole("link", { name: /plants/i }).click();
+    cy.findByText("No plants yet");
+
+    cy.findByRole("link", { name: /\+ new plant/i }).click();
+
+    cy.get(nameInput).type(testPlant.name);
+    cy.get(locationInput).type(testPlant.location);
+    cy.get(purchasedAtInput).type(testPlant.purchasedAt);
+    cy.findByRole("button", { name: /save/i }).click();
+
+    cy.findByText("No waterings logged for this plant.");
+
+    cy.get(addWateringBtn).click();
+
+    cy.get(wateredAtInput).type(testPlant.wateredAt);
+
+    cy.get(submitWateringBtn).click();
+
+    cy.findByText("12/05/2022");
   });
 });

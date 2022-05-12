@@ -59,6 +59,7 @@ export default function AddWateringPage() {
 
         <button
           type="submit"
+          data-testid="submitWatering"
           className="mr-2 inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
         >
           Add

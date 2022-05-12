@@ -1,5 +1,8 @@
 {
   "nameInput": "[data-testid='name']",
   "locationInput": "[data-testid='location']",
-  "purchasedAtInput": "[data-testid='purchasedAt']"
+  "purchasedAtInput": "[data-testid='purchasedAt']",
+  "wateredAtInput": "[data-testid='wateredAt']",
+  "addWateringBtn": "[data-testid='addWatering']",
+  "submitWateringBtn": "[data-testid='submitWatering']"
 }

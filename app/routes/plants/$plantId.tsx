@@ -66,6 +66,7 @@ export default function PlantDetailsPage() {
       </ul>
 
       <hr className="my-4" />
+      <div className="flex">
       <Form method="post">
         <button
           type="submit"
@@ -79,6 +80,7 @@ export default function PlantDetailsPage() {
           Add Watering
         </button>
       </Link>
+      </div>
       <Outlet />
     </div>
   );

@@ -22,6 +22,7 @@ export function getWateringListItems({ plantId }: { plantId: Plant["id"] }) {
   return prisma.watering.findMany({
     where: { plantId },
     select: { id: true, wateredDate: true },
-    orderBy: { updatedAt: "desc" },
+    orderBy: { wateredDate: "desc" },
+    take: 5,
   });
 }

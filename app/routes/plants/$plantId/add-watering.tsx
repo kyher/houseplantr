@@ -67,7 +67,6 @@ export default function AddWateringPage() {
         </button>
         <Link to='../'>
           <button
-            data-testid="submitWatering"
             className="mr-2 inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800"
           >
             Cancel

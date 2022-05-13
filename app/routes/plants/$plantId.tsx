@@ -45,15 +45,16 @@ export default function PlantDetailsPage() {
   return (
     <div>
       <h3 className="text-2xl font-bold">{data.plant.name}</h3>
-      <p className="py-6">
+      <p>
         <strong>Location:</strong> {data.plant.location}
       </p>
-      <p className="py-6">
+      <p>
         <strong>Purchased At:</strong>{" "}
         {new Date(data.plant.purchasedAt).toLocaleDateString('en-GB')}
       </p>
-      <p className="py-6">
-        <strong>Waterings:</strong>{" "}
+      <div className="bg-blue-900 w-1/5 text-white rounded px-5 py-2">
+      <p>
+        <strong>💦 Waterings:</strong>{" "}
       </p>
       <ul>
         {data.wateringListItems.length
@@ -64,6 +65,8 @@ export default function PlantDetailsPage() {
             ))
           : "No waterings logged for this plant."}
       </ul>
+      </div>
+     
 
       <hr className="my-4" />
       <div className="flex">

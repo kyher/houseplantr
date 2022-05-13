@@ -70,22 +70,22 @@ export default function PlantDetailsPage() {
 
       <hr className="my-4" />
       <div className="flex">
-        <Form method="post">
-          <button
-            type="submit"
-            className="rounded bg-green-500  py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-          >
-            Delete
-          </button>
-        </Form>
         <Link to={`./add-watering`}>
           <button
-            className="rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+            className="rounded bg-blue-500 mr-2 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
             data-testid="addWatering"
           >
             Add Watering
           </button>
         </Link>
+        <Form method="post">
+          <button
+            type="submit"
+            className="rounded bg-red-500  py-2 px-4 text-white hover:bg-red-600 focus:bg-red-400"
+          >
+            Delete
+          </button>
+        </Form>
       </div>
       <Outlet />
     </div>

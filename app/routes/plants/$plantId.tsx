@@ -52,7 +52,7 @@ export default function PlantDetailsPage() {
         <strong>Purchased At:</strong>{" "}
         {new Date(data.plant.purchasedAt).toLocaleDateString('en-GB')}
       </p>
-      <div className="bg-blue-900 w-1/5 text-white rounded px-5 py-2">
+      <div className="bg-blue-900 lg:w-1/5 text-white rounded px-5 py-2">
       <p>
         <strong>💦 Waterings:</strong>{" "}
       </p>

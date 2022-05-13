@@ -18,7 +18,7 @@ export function getPlant({
 export function getPlantListItems({ userId }: { userId: User["id"] }) {
   return prisma.plant.findMany({
     where: { userId },
-    select: { id: true, name: true },
+    select: { id: true, name: true, location: true },
     orderBy: { updatedAt: "desc" },
   });
 }

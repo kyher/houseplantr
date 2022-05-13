@@ -43,7 +43,7 @@ export default function AddWateringPage() {
   }, [actionData]);
 
   return (
-    <div className="h-modal z-50 overflow-y-auto overflow-x-hidden md:inset-0 md:h-full">
+    <div className="bg-blue-900 text-white w-1/3 p-5 rounded my-1 text-center">
       <Form method="post">
         <h3 className="mb-5 text-lg">Enter a watering date:</h3>
         <input
@@ -51,23 +51,23 @@ export default function AddWateringPage() {
           data-testid="wateredAt"
           type="date"
           name="wateredAt"
-          className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
+          className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose mb-5 text-black"
           aria-invalid={actionData?.errors?.wateredAt ? true : undefined}
           aria-errormessage={
             actionData?.errors?.wateredAt ? "wateredAt-error" : undefined
           }
-        />
+        /><br />
 
         <button
           type="submit"
           data-testid="submitWatering"
-          className="mr-2 inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
+          className="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
         >
           Add
         </button>
         <Link to='../'>
           <button
-            className="mr-2 inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800"
+            className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800"
           >
             Cancel
           </button>

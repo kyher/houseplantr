@@ -7,6 +7,9 @@ import {
   wateredAtInput,
   addWateringBtn,
   submitWateringBtn,
+  addFeedingBtn,
+  fedAtInput,
+  submitFeedingBtn
 } from "../fixtures/testDataIds.json";
 
 describe("smoke tests", () => {
@@ -85,5 +88,76 @@ describe("smoke tests", () => {
     cy.get(submitWateringBtn).click();
 
     cy.findByText("12/05/2022");
+  });
+  it("should allow you to add feedings", () => {
+    const testPlant = {
+      name: faker.lorem.words(1),
+      location: faker.lorem.words(1),
+      purchasedAt: "2022-05-09",
+      fedAt: "2022-05-13"
+    };
+    cy.login();
+    cy.visit("/");
+
+    cy.findByRole("link", { name: /plants/i }).click();
+    cy.findByText("No plants yet");
+
+    cy.findByRole("link", { name: /\+ new plant/i }).click();
+
+    cy.get(nameInput).type(testPlant.name);
+    cy.get(locationInput).type(testPlant.location);
+    cy.get(purchasedAtInput).type(testPlant.purchasedAt);
+    cy.findByRole("button", { name: /save/i }).click();
+
+    cy.findByText("No feedings logged for this plant.");
+
+    cy.get(addFeedingBtn).click();
+
+    cy.get(fedAtInput).type(testPlant.fedAt);
+
+    cy.get(submitFeedingBtn).click();
+
+    cy.findByText("13/05/2022");
+  });
+  it("should allow you to add waterings and feedings", () => {
+    const testPlant = {
+      name: faker.lorem.words(1),
+      location: faker.lorem.words(1),
+      purchasedAt: "2022-05-09",
+      wateredAt: "2022-05-12",
+      fedAt: "2022-05-13"
+    };
+    cy.login();
+    cy.visit("/");
+
+    cy.findByRole("link", { name: /plants/i }).click();
+    cy.findByText("No plants yet");
+
+    cy.findByRole("link", { name: /\+ new plant/i }).click();
+
+    cy.get(nameInput).type(testPlant.name);
+    cy.get(locationInput).type(testPlant.location);
+    cy.get(purchasedAtInput).type(testPlant.purchasedAt);
+    cy.findByRole("button", { name: /save/i }).click();
+
+    cy.findByText("No feedings logged for this plant.");
+
+    cy.get(addFeedingBtn).click();
+
+    cy.get(fedAtInput).type(testPlant.fedAt);
+
+    cy.get(submitFeedingBtn).click();
+
+    cy.findByText("13/05/2022");
+
+    cy.findByText("No waterings logged for this plant.");
+
+    cy.get(addWateringBtn).click();
+
+    cy.get(wateredAtInput).type(testPlant.wateredAt);
+
+    cy.get(submitWateringBtn).click();
+
+    cy.findByText("12/05/2022");    
   });
 });

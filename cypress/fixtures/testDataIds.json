@@ -4,5 +4,8 @@
   "purchasedAtInput": "[data-testid='purchasedAt']",
   "wateredAtInput": "[data-testid='wateredAt']",
   "addWateringBtn": "[data-testid='addWatering']",
-  "submitWateringBtn": "[data-testid='submitWatering']"
+  "submitWateringBtn": "[data-testid='submitWatering']",
+  "fedAtInput": "[data-testid='fedAt']",
+  "addFeedingBtn": "[data-testid='addFeeding']",
+  "submitFeedingBtn": "[data-testid='submitFeeding']"
 }

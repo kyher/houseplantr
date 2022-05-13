@@ -54,8 +54,11 @@ export default function PlantsPage() {
                     }
                     to={plant.id}
                   >
-                    🪴{plant.name}<br />
-                    <span className="italic text-xs ml-7 text-slate-400">{plant.location}</span>
+                    🪴{plant.name}
+                    <br />
+                    <span className="ml-7 text-xs italic text-slate-400">
+                      {plant.location}
+                    </span>
                   </NavLink>
                 </li>
               ))}

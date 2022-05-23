@@ -9,7 +9,7 @@ import {
   submitWateringBtn,
   addFeedingBtn,
   fedAtInput,
-  submitFeedingBtn
+  submitFeedingBtn,
 } from "../fixtures/testDataIds.json";
 
 describe("smoke tests", () => {
@@ -87,14 +87,14 @@ describe("smoke tests", () => {
 
     cy.get(submitWateringBtn).click();
 
-    cy.findByText("12/05/2022");
+    cy.findByText("(12/05/2022)");
   });
   it("should allow you to add feedings", () => {
     const testPlant = {
       name: faker.lorem.words(1),
       location: faker.lorem.words(1),
       purchasedAt: "2022-05-09",
-      fedAt: "2022-05-13"
+      fedAt: "2022-05-13",
     };
     cy.login();
     cy.visit("/");
@@ -117,7 +117,7 @@ describe("smoke tests", () => {
 
     cy.get(submitFeedingBtn).click();
 
-    cy.findByText("13/05/2022");
+    cy.findByText("(13/05/2022)");
   });
   it("should allow you to add waterings and feedings", () => {
     const testPlant = {
@@ -125,7 +125,7 @@ describe("smoke tests", () => {
       location: faker.lorem.words(1),
       purchasedAt: "2022-05-09",
       wateredAt: "2022-05-12",
-      fedAt: "2022-05-13"
+      fedAt: "2022-05-13",
     };
     cy.login();
     cy.visit("/");
@@ -148,7 +148,7 @@ describe("smoke tests", () => {
 
     cy.get(submitFeedingBtn).click();
 
-    cy.findByText("13/05/2022");
+    cy.findByText("(13/05/2022)");
 
     cy.findByText("No waterings logged for this plant.");
 
@@ -158,6 +158,6 @@ describe("smoke tests", () => {
 
     cy.get(submitWateringBtn).click();
 
-    cy.findByText("12/05/2022");    
+    cy.findByText("(12/05/2022)");
   });
 });

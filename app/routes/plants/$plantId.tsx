@@ -2,6 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import { format, formatDistance } from "date-fns";
 
 import type { Plant } from "~/models/plant.server";
 import { deletePlant } from "~/models/plant.server";
@@ -56,10 +57,10 @@ export default function PlantDetailsPage() {
       </p>
       <p>
         <strong>Purchased At:</strong>{" "}
-        {new Date(data.plant.purchasedAt).toLocaleDateString("en-GB")}
+        {format(new Date(data.plant.purchasedAt), "dd/MM/yyyy")}
       </p>
-      <div className="flex my-2">
-        <div className="rounded bg-blue-900 px-5 py-2 text-white lg:w-1/5 mr-5">
+      <div className="my-2 flex">
+        <div className="mr-5 rounded bg-blue-900 px-5 py-2 text-white lg:w-1/3">
           <p>
             <strong>💦 Waterings:</strong>{" "}
           </p>
@@ -67,13 +68,22 @@ export default function PlantDetailsPage() {
             {data.wateringListItems.length
               ? data.wateringListItems.map((watering) => (
                   <li key={watering.id}>
-                    {new Date(watering.wateredDate).toLocaleDateString("en-GB")}
+                    <span className="mr-1">
+                      {formatDistance(
+                        new Date(watering.wateredDate),
+                        new Date(),
+                        { addSuffix: true }
+                      )}
+                    </span>
+                    <span>
+                      ({format(new Date(watering.wateredDate), "dd/MM/yyyy")})
+                    </span>
                   </li>
                 ))
               : "No waterings logged for this plant."}
           </ul>
         </div>
-        <div className="rounded bg-green-900 px-5 py-2 text-white lg:w-1/5">
+        <div className="rounded bg-green-900 px-5 py-2 text-white lg:w-1/3">
           <p>
             <strong>💩 Feedings:</strong>{" "}
           </p>
@@ -81,14 +91,21 @@ export default function PlantDetailsPage() {
             {data.feedingListItems.length
               ? data.feedingListItems.map((feeding) => (
                   <li key={feeding.id}>
-                    {new Date(feeding.fedDate).toLocaleDateString("en-GB")}
+                    <span className="mr-1">
+                      {formatDistance(new Date(feeding.fedDate), new Date(), {
+                        addSuffix: true,
+                      })}
+                    </span>
+                    <span>
+                      ({format(new Date(feeding.fedDate), "dd/MM/yyyy")})
+                    </span>
                   </li>
                 ))
               : "No feedings logged for this plant."}
           </ul>
         </div>
       </div>
-    
+
       <hr className="my-4" />
       <div className="flex">
         <Link to={`./add-watering`}>

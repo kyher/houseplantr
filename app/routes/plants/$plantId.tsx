@@ -10,6 +10,7 @@ import { getPlant } from "~/models/plant.server";
 import { getWateringListItems } from "~/models/watering.server";
 import { getFeedingListItems } from "~/models/feeding.server";
 import { requireUserId } from "~/session.server";
+import { PlantItem } from "~/components/PlantItem";
 
 type LoaderData = {
   plant: Plant;
@@ -67,18 +68,7 @@ export default function PlantDetailsPage() {
           <ul>
             {data.wateringListItems.length
               ? data.wateringListItems.map((watering) => (
-                  <li key={watering.id}>
-                    <span className="mr-1">
-                      {formatDistance(
-                        new Date(watering.wateredDate),
-                        new Date(),
-                        { addSuffix: true }
-                      )}
-                    </span>
-                    <span>
-                      ({format(new Date(watering.wateredDate), "dd/MM/yyyy")})
-                    </span>
-                  </li>
+                  <PlantItem id={watering.id} date={watering.wateredDate} />
                 ))
               : "No waterings logged for this plant."}
           </ul>
@@ -90,16 +80,7 @@ export default function PlantDetailsPage() {
           <ul>
             {data.feedingListItems.length
               ? data.feedingListItems.map((feeding) => (
-                  <li key={feeding.id}>
-                    <span className="mr-1">
-                      {formatDistance(new Date(feeding.fedDate), new Date(), {
-                        addSuffix: true,
-                      })}
-                    </span>
-                    <span>
-                      ({format(new Date(feeding.fedDate), "dd/MM/yyyy")})
-                    </span>
-                  </li>
+                  <PlantItem id={feeding.id} date={feeding.fedDate} />
                 ))
               : "No feedings logged for this plant."}
           </ul>

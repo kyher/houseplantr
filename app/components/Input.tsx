@@ -24,7 +24,7 @@ export const Input = ({
       type={type ? type : "text"}
       autoComplete={type === "email" ? "email" : ""}
       name={name}
-      className="mb-5 w-full rounded-md border-2  border-gray-800 px-3 text-lg leading-loose"
+      className="mb-5 w-full rounded-md border-2 border-gray-300 px-3 text-lg leading-loose"
       aria-invalid={invalid}
       aria-errormessage={error}
       required={required}

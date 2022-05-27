@@ -136,7 +136,6 @@ export default function LoginPage() {
                   actionData?.errors?.password ? "password-error" : undefined
                 }
                 type="password"
-                autoFocus={true}
                 required={true}
               />
               {actionData?.errors?.password && (

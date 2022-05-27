@@ -137,7 +137,6 @@ export default function Join() {
                   actionData?.errors?.password ? "password-error" : undefined
                 }
                 type="password"
-                autoFocus={true}
                 required={true}
               />
               {actionData?.errors?.password && (

@@ -28,7 +28,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     fedDate = new Date(fedAtFormData);
   }
 
-  await createFeeding({ fedDate, plantId: params.plantId });
+  await createFeeding({ date: fedDate, plantId: params.plantId });
 
   return redirect(`/plants/${params.plantId}`);
 };

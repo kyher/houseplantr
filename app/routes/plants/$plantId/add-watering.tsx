@@ -15,7 +15,7 @@ type ActionData = {
 
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.plantId, "plantId not found");
-  let wateredDate;
+  let date;
   const formData = await request.formData();
   const wateredAtFormData = formData.get("wateredAt");
 
@@ -25,10 +25,10 @@ export const action: ActionFunction = async ({ request, params }) => {
       { status: 400 }
     );
   } else {
-    wateredDate = new Date(wateredAtFormData);
+    date = new Date(wateredAtFormData);
   }
 
-  await createWatering({ wateredDate, plantId: params.plantId });
+  await createWatering({ date, plantId: params.plantId });
 
   return redirect(`/plants/${params.plantId}`);
 };

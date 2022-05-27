@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { format, formatDistance } from "date-fns";
+import { format } from "date-fns";
 
 import type { Plant } from "~/models/plant.server";
 import { deletePlant } from "~/models/plant.server";
@@ -12,6 +12,7 @@ import { getFeedingListItems } from "~/models/feeding.server";
 import { requireUserId } from "~/session.server";
 import { PlantItem } from "~/components/PlantItem";
 import { Button } from "~/components/Button";
+import { PlantItemList } from "~/components/PlantItemList";
 
 type LoaderData = {
   plant: Plant;
@@ -62,30 +63,8 @@ export default function PlantDetailsPage() {
         {format(new Date(data.plant.purchasedAt), "dd/MM/yyyy")}
       </p>
       <div className="my-2 flex">
-        <div className="mr-5 rounded bg-blue-900 px-5 py-2 text-white lg:w-1/3">
-          <p>
-            <strong>💦 Waterings:</strong>{" "}
-          </p>
-          <ul>
-            {data.wateringListItems.length
-              ? data.wateringListItems.map((watering) => (
-                  <PlantItem id={watering.id} date={watering.wateredDate} />
-                ))
-              : "No waterings logged for this plant."}
-          </ul>
-        </div>
-        <div className="rounded bg-green-900 px-5 py-2 text-white lg:w-1/3">
-          <p>
-            <strong>💩 Feedings:</strong>{" "}
-          </p>
-          <ul>
-            {data.feedingListItems.length
-              ? data.feedingListItems.map((feeding) => (
-                  <PlantItem id={feeding.id} date={feeding.fedDate} />
-                ))
-              : "No feedings logged for this plant."}
-          </ul>
-        </div>
+        <PlantItemList type="Waterings" list={data.wateringListItems} />
+        <PlantItemList type="Feedings" list={data.feedingListItems} />
       </div>
 
       <hr className="my-4" />

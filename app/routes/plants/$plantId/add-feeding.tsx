@@ -4,6 +4,7 @@ import { json, redirect } from "@remix-run/node";
 import { createFeeding } from "~/models/feeding.server";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Input } from "~/components/Input";
 
 type ActionData = {
   errors?: {
@@ -45,17 +46,13 @@ export default function AddFeedingPage() {
     <div className="my-1 w-1/3 rounded bg-green-900 p-5 text-center text-white">
       <Form method="post">
         <h3 className="mb-5 text-lg">Enter a feeding date:</h3>
-        <input
-          ref={fedAtRef}
-          data-testid="fedAt"
-          type="date"
+        <Input
           name="fedAt"
-          className="mb-5 flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose text-black"
-          aria-invalid={actionData?.errors?.fedAt ? true : undefined}
-          aria-errormessage={
-            actionData?.errors?.fedAt ? "fedAt-error" : undefined
-          }
+          ref={fedAtRef}
+          invalid={actionData?.errors?.fedAt ? true : undefined}
+          error={actionData?.errors?.fedAt ? "fedAt-error" : undefined}
         />
+
         <br />
 
         <button

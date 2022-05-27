@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
 import { createUserSession, getUserId } from "~/session.server";
 import { verifyLogin } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
+import { Input } from "~/components/Input";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -102,17 +103,14 @@ export default function LoginPage() {
               Email address
             </label>
             <div className="mt-1">
-              <input
-                ref={emailRef}
-                id="email"
-                required
-                autoFocus={true}
+              <Input
                 name="email"
+                ref={emailRef}
+                invalid={actionData?.errors?.email ? true : undefined}
+                error={actionData?.errors?.email ? "email-error" : undefined}
                 type="email"
-                autoComplete="email"
-                aria-invalid={actionData?.errors?.email ? true : undefined}
-                aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                autoFocus={true}
+                required={true}
               />
               {actionData?.errors?.email && (
                 <div className="pt-1 text-red-700" id="email-error">
@@ -130,15 +128,16 @@ export default function LoginPage() {
               Password
             </label>
             <div className="mt-1">
-              <input
-                id="password"
-                ref={passwordRef}
+              <Input
                 name="password"
+                ref={passwordRef}
+                invalid={actionData?.errors?.password ? true : undefined}
+                error={
+                  actionData?.errors?.password ? "password-error" : undefined
+                }
                 type="password"
-                autoComplete="current-password"
-                aria-invalid={actionData?.errors?.password ? true : undefined}
-                aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                autoFocus={true}
+                required={true}
               />
               {actionData?.errors?.password && (
                 <div className="pt-1 text-red-700" id="password-error">

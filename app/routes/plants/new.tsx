@@ -2,6 +2,7 @@ import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Input } from "~/components/Input";
 
 import { createPlant } from "~/models/plant.server";
 import { requireUserId } from "~/session.server";
@@ -71,6 +72,7 @@ export default function NewPlantPage() {
   }, [actionData]);
 
   return (
+    //todo: add better styling here.
     <Form
       method="post"
       style={{
@@ -83,15 +85,11 @@ export default function NewPlantPage() {
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Name: </span>
-          <input
-            ref={nameRef}
-            data-testid="name"
+          <Input
             name="name"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.name ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.name ? "name-error" : undefined
-            }
+            ref={nameRef}
+            invalid={actionData?.errors?.name ? true : undefined}
+            error={actionData?.errors?.name ? "name-error" : undefined}
           />
         </label>
         {actionData?.errors?.name && (
@@ -104,15 +102,11 @@ export default function NewPlantPage() {
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Location: </span>
-          <input
-            ref={locationRef}
-            data-testid="location"
+          <Input
             name="location"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.location ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.location ? "location-error" : undefined
-            }
+            ref={locationRef}
+            invalid={actionData?.errors?.location ? true : undefined}
+            error={actionData?.errors?.location ? "location-error" : undefined}
           />
         </label>
         {actionData?.errors?.location && (
@@ -125,16 +119,14 @@ export default function NewPlantPage() {
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Purchased At: </span>
-          <input
-            ref={purchasedAtRef}
-            data-testid="purchasedAt"
-            type="date"
+          <Input
             name="purchasedAt"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.purchasedAt ? true : undefined}
-            aria-errormessage={
+            ref={purchasedAtRef}
+            invalid={actionData?.errors?.purchasedAt ? true : undefined}
+            error={
               actionData?.errors?.purchasedAt ? "purchasedAt-error" : undefined
             }
+            type="date"
           />
         </label>
         {actionData?.errors?.purchasedAt && (

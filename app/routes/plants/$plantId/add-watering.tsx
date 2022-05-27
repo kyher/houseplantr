@@ -4,6 +4,7 @@ import { json, redirect } from "@remix-run/node";
 import { createWatering } from "~/models/watering.server";
 import { Form, useActionData, Link } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Input } from "~/components/Input";
 
 type ActionData = {
   errors?: {
@@ -45,16 +46,11 @@ export default function AddWateringPage() {
     <div className="my-1 w-1/3 rounded bg-blue-900 p-5 text-center text-white">
       <Form method="post">
         <h3 className="mb-5 text-lg">Enter a watering date:</h3>
-        <input
-          ref={wateredAtRef}
-          data-testid="wateredAt"
-          type="date"
+        <Input
           name="wateredAt"
-          className="mb-5 flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose text-black"
-          aria-invalid={actionData?.errors?.wateredAt ? true : undefined}
-          aria-errormessage={
-            actionData?.errors?.wateredAt ? "wateredAt-error" : undefined
-          }
+          ref={wateredAtRef}
+          invalid={actionData?.errors?.wateredAt ? true : undefined}
+          error={actionData?.errors?.wateredAt ? "wateredAt-error" : undefined}
         />
         <br />
 

@@ -72,16 +72,7 @@ export default function NewPlantPage() {
   }, [actionData]);
 
   return (
-    //todo: add better styling here.
-    <Form
-      method="post"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        width: "100%",
-      }}
-    >
+    <Form method="post">
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Name: </span>

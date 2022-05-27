@@ -5,14 +5,14 @@ import { prisma } from "~/db.server";
 export type { Watering } from "@prisma/client";
 
 export function createWatering({
-  wateredDate,
+  date,
   plantId,
-}: Pick<Watering, "wateredDate"> & {
+}: Pick<Watering, "date"> & {
   plantId: Plant["id"];
 }) {
   return prisma.watering.create({
     data: {
-      wateredDate,
+      date,
       plantId,
     },
   });
@@ -21,8 +21,8 @@ export function createWatering({
 export function getWateringListItems({ plantId }: { plantId: Plant["id"] }) {
   return prisma.watering.findMany({
     where: { plantId },
-    select: { id: true, wateredDate: true },
-    orderBy: { wateredDate: "desc" },
+    select: { id: true, date: true },
+    orderBy: { date: "desc" },
     take: 5,
   });
 }

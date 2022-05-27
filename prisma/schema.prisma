@@ -44,7 +44,7 @@ model Plant {
 model Watering {
   id String @id @default(cuid())
 
-  wateredDate DateTime @default(now())
+  date DateTime @default(now())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,7 +56,7 @@ model Watering {
 model Feeding {
   id String @id @default(cuid())
 
-  fedDate DateTime @default(now())
+  date DateTime @default(now())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

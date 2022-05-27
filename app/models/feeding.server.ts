@@ -5,14 +5,14 @@ import { prisma } from "~/db.server";
 export type { Feeding } from "@prisma/client";
 
 export function createFeeding({
-  fedDate,
+  date,
   plantId,
-}: Pick<Feeding, "fedDate"> & {
+}: Pick<Feeding, "date"> & {
   plantId: Plant["id"];
 }) {
   return prisma.feeding.create({
     data: {
-      fedDate,
+      date,
       plantId,
     },
   });
@@ -21,8 +21,8 @@ export function createFeeding({
 export function getFeedingListItems({ plantId }: { plantId: Plant["id"] }) {
   return prisma.feeding.findMany({
     where: { plantId },
-    select: { id: true, fedDate: true },
-    orderBy: { fedDate: "desc" },
+    select: { id: true, date: true },
+    orderBy: { date: "desc" },
     take: 5,
   });
 }

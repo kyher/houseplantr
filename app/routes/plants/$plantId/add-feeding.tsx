@@ -3,7 +3,7 @@ import invariant from "tiny-invariant";
 import { json, redirect } from "@remix-run/node";
 import { createFeeding } from "~/models/feeding.server";
 import { Form, Link, useActionData } from "@remix-run/react";
-import * as React from "react";
+import { useEffect, useRef } from "react";
 
 type ActionData = {
   errors?: {
@@ -33,9 +33,9 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function AddFeedingPage() {
   const actionData = useActionData() as ActionData;
-  const fedAtRef = React.useRef<HTMLInputElement>(null);
+  const fedAtRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.fedAt) {
       fedAtRef.current?.focus();
     }

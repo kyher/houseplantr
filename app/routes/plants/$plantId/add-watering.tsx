@@ -2,9 +2,8 @@ import type { ActionFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { json, redirect } from "@remix-run/node";
 import { createWatering } from "~/models/watering.server";
-import { Form, useActionData } from "@remix-run/react";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { Form, useActionData, Link } from "@remix-run/react";
+import { useEffect, useRef } from "react";
 
 type ActionData = {
   errors?: {
@@ -34,9 +33,9 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function AddWateringPage() {
   const actionData = useActionData() as ActionData;
-  const wateredAtRef = React.useRef<HTMLInputElement>(null);
+  const wateredAtRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.wateredAt) {
       wateredAtRef.current?.focus();
     }

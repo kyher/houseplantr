@@ -1,7 +1,7 @@
 import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
-import * as React from "react";
+import { useEffect, useRef } from "react";
 
 import { createPlant } from "~/models/plant.server";
 import { requireUserId } from "~/session.server";
@@ -56,11 +56,11 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function NewPlantPage() {
   const actionData = useActionData() as ActionData;
-  const nameRef = React.useRef<HTMLInputElement>(null);
-  const locationRef = React.useRef<HTMLInputElement>(null);
-  const purchasedAtRef = React.useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const purchasedAtRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.name) {
       nameRef.current?.focus();
     } else if (actionData?.errors?.location) {

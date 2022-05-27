@@ -2,6 +2,7 @@ import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Button } from "~/components/Button";
 import { Input } from "~/components/Input";
 
 import { createPlant } from "~/models/plant.server";
@@ -126,14 +127,8 @@ export default function NewPlantPage() {
           </div>
         )}
       </div>
-
       <div className="text-right">
-        <button
-          type="submit"
-          className="rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-        >
-          Save
-        </button>
+        <Button text="Save" submit={true} />
       </div>
     </Form>
   );

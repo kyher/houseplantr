@@ -11,6 +11,7 @@ import { createUserSession, getUserId } from "~/session.server";
 import { verifyLogin } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
 import { Input } from "~/components/Input";
+import { Button } from "~/components/Button";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -147,12 +148,7 @@ export default function LoginPage() {
           </div>
 
           <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button
-            type="submit"
-            className="w-full rounded bg-green-500  py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-          >
-            Log in
-          </button>
+          <Button text="Log In" submit={true} />
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input

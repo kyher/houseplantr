@@ -5,6 +5,7 @@ import { createFeeding } from "~/models/feeding.server";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { Input } from "~/components/Input";
+import { Button } from "~/components/Button";
 
 type ActionData = {
   errors?: {
@@ -54,18 +55,10 @@ export default function AddFeedingPage() {
         />
 
         <br />
+        <Button text="Add" submit={true} testId="submitFeeding" />
 
-        <button
-          type="submit"
-          data-testid="submitFeeding"
-          className="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
-        >
-          Add
-        </button>
         <Link to="../">
-          <button className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800">
-            Cancel
-          </button>
+          <Button text="Cancel" />
         </Link>
       </Form>
       {actionData?.errors?.fedAt && (

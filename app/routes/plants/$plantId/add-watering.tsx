@@ -5,6 +5,7 @@ import { createWatering } from "~/models/watering.server";
 import { Form, useActionData, Link } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { Input } from "~/components/Input";
+import { Button } from "~/components/Button";
 
 type ActionData = {
   errors?: {
@@ -54,17 +55,10 @@ export default function AddWateringPage() {
         />
         <br />
 
-        <button
-          type="submit"
-          data-testid="submitWatering"
-          className="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
-        >
-          Add
-        </button>
+        <Button text="Add" submit={true} testId="submitWatering" />
+
         <Link to="../">
-          <button className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800">
-            Cancel
-          </button>
+          <Button text="Cancel" />
         </Link>
       </Form>
       {actionData?.errors?.wateredAt && (

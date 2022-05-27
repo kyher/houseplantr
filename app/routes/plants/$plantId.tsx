@@ -11,6 +11,7 @@ import { getWateringListItems } from "~/models/watering.server";
 import { getFeedingListItems } from "~/models/feeding.server";
 import { requireUserId } from "~/session.server";
 import { PlantItem } from "~/components/PlantItem";
+import { Button } from "~/components/Button";
 
 type LoaderData = {
   plant: Plant;
@@ -90,28 +91,13 @@ export default function PlantDetailsPage() {
       <hr className="my-4" />
       <div className="flex">
         <Link to={`./add-watering`}>
-          <button
-            className="mr-2 rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-            data-testid="addWatering"
-          >
-            Add Watering
-          </button>
+          <Button text="Add Watering" testId="addWatering" />
         </Link>
         <Link to={`./add-feeding`}>
-          <button
-            className="mr-2 rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-            data-testid="addFeeding"
-          >
-            Add Feeding
-          </button>
+          <Button text="Add Feeding" testId="addFeeding" />
         </Link>
         <Form method="post">
-          <button
-            type="submit"
-            className="rounded bg-red-500  py-2 px-4 text-white hover:bg-red-600 focus:bg-red-400"
-          >
-            Delete
-          </button>
+          <Button text="Delete" submit={true} />
         </Form>
       </div>
       <Outlet />

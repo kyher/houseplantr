@@ -1,6 +1,8 @@
 import faker from "@faker-js/faker";
 
 import {
+  emailInput,
+  passwordInput,
   nameInput,
   locationInput,
   purchasedAtInput,
@@ -10,7 +12,7 @@ import {
   addFeedingBtn,
   fedAtInput,
   submitFeedingBtn,
-} from "../fixtures/testDataIds.json";
+} from "../fixtures/dataTestIds.json";
 
 describe("smoke tests", () => {
   afterEach(() => {
@@ -27,8 +29,8 @@ describe("smoke tests", () => {
     cy.visit("/");
     cy.findByRole("link", { name: /sign up/i }).click();
 
-    cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
+    cy.get(emailInput).type(loginForm.email);
+    cy.get(passwordInput).type(loginForm.password);
     cy.findByRole("button", { name: /create account/i }).click();
 
     cy.findByRole("link", { name: /plants/i }).click();

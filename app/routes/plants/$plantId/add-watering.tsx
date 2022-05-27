@@ -44,7 +44,7 @@ export default function AddWateringPage() {
   }, [actionData]);
 
   return (
-    <div className="my-1 w-1/3 rounded bg-blue-900 p-5 text-center text-white">
+    <div className="my-1 w-1/3 rounded border-2 bg-slate-100 p-5 text-center">
       <Form method="post">
         <h3 className="mb-5 text-lg">Enter a watering date:</h3>
         <Input
@@ -52,6 +52,7 @@ export default function AddWateringPage() {
           ref={wateredAtRef}
           invalid={actionData?.errors?.wateredAt ? true : undefined}
           error={actionData?.errors?.wateredAt ? "wateredAt-error" : undefined}
+          type="date"
         />
         <br />
 

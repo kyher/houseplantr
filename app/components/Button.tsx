@@ -8,7 +8,7 @@ export const Button = ({ text, submit, testId }: props) => {
   return (
     <button
       type={submit ? "submit" : "button"}
-      className="mx-2 rounded border-2 border-green-900 bg-white py-2 px-4 text-green-900"
+      className="mx-2 rounded bg-green-900 py-2 px-4 text-white"
       data-testid={testId}
     >
       {text}

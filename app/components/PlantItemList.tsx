@@ -1,5 +1,5 @@
-import { getFeedingListItems } from "~/models/feeding.server";
-import { getWateringListItems } from "~/models/watering.server";
+import type { getFeedingListItems } from "~/models/feeding.server";
+import type { getWateringListItems } from "~/models/watering.server";
 import { PlantItem } from "./PlantItem";
 
 type props = {
@@ -17,7 +17,9 @@ export const PlantItemList = ({ type, list }: props) => {
       </p>
       <ul>
         {list.length
-          ? list.map(({ id, date }) => <PlantItem id={id} date={date} />)
+          ? list.map(({ id, date }) => (
+              <PlantItem id={id} key={id} date={date} />
+            ))
           : `No ${type.toLowerCase()} logged for this plant.`}
       </ul>
     </div>

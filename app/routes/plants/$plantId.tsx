@@ -10,7 +10,6 @@ import { getPlant } from "~/models/plant.server";
 import { getWateringListItems } from "~/models/watering.server";
 import { getFeedingListItems } from "~/models/feeding.server";
 import { requireUserId } from "~/session.server";
-import { PlantItem } from "~/components/PlantItem";
 import { Button } from "~/components/Button";
 import { PlantItemList } from "~/components/PlantItemList";
 

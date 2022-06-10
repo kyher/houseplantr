@@ -2,9 +2,10 @@ import type { ActionFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { json, redirect } from "@remix-run/node";
 import { createWatering } from "~/models/watering.server";
-import { Form, useActionData } from "@remix-run/react";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { Form, useActionData, Link } from "@remix-run/react";
+import { useEffect, useRef } from "react";
+import { Input } from "~/components/Input";
+import { Button } from "~/components/Button";
 
 type ActionData = {
   errors?: {
@@ -14,7 +15,7 @@ type ActionData = {
 
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.plantId, "plantId not found");
-  let wateredDate;
+  let date;
   const formData = await request.formData();
   const wateredAtFormData = formData.get("wateredAt");
 
@@ -24,52 +25,41 @@ export const action: ActionFunction = async ({ request, params }) => {
       { status: 400 }
     );
   } else {
-    wateredDate = new Date(wateredAtFormData);
+    date = new Date(wateredAtFormData);
   }
 
-  await createWatering({ wateredDate, plantId: params.plantId });
+  await createWatering({ date, plantId: params.plantId });
 
   return redirect(`/plants/${params.plantId}`);
 };
 
 export default function AddWateringPage() {
   const actionData = useActionData() as ActionData;
-  const wateredAtRef = React.useRef<HTMLInputElement>(null);
+  const wateredAtRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.wateredAt) {
       wateredAtRef.current?.focus();
     }
   }, [actionData]);
 
   return (
-    <div className="my-1 w-1/3 rounded bg-blue-900 p-5 text-center text-white">
+    <div className="my-1 w-1/3 rounded border-2 bg-slate-100 p-5 text-center">
       <Form method="post">
         <h3 className="mb-5 text-lg">Enter a watering date:</h3>
-        <input
-          ref={wateredAtRef}
-          data-testid="wateredAt"
-          type="date"
+        <Input
           name="wateredAt"
-          className="mb-5 flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose text-black"
-          aria-invalid={actionData?.errors?.wateredAt ? true : undefined}
-          aria-errormessage={
-            actionData?.errors?.wateredAt ? "wateredAt-error" : undefined
-          }
+          ref={wateredAtRef}
+          invalid={actionData?.errors?.wateredAt ? true : undefined}
+          error={actionData?.errors?.wateredAt ? "wateredAt-error" : undefined}
+          type="date"
         />
         <br />
 
-        <button
-          type="submit"
-          data-testid="submitWatering"
-          className="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800"
-        >
-          Add
-        </button>
+        <Button text="Add" submit={true} testId="submitWatering" />
+
         <Link to="../">
-          <button className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800">
-            Cancel
-          </button>
+          <Button text="Cancel" />
         </Link>
       </Form>
       {actionData?.errors?.wateredAt && (

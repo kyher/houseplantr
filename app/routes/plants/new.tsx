@@ -1,7 +1,9 @@
 import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
-import * as React from "react";
+import { useEffect, useRef } from "react";
+import { Button } from "~/components/Button";
+import { Input } from "~/components/Input";
 
 import { createPlant } from "~/models/plant.server";
 import { requireUserId } from "~/session.server";
@@ -56,11 +58,11 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function NewPlantPage() {
   const actionData = useActionData() as ActionData;
-  const nameRef = React.useRef<HTMLInputElement>(null);
-  const locationRef = React.useRef<HTMLInputElement>(null);
-  const purchasedAtRef = React.useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const purchasedAtRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.name) {
       nameRef.current?.focus();
     } else if (actionData?.errors?.location) {
@@ -71,27 +73,15 @@ export default function NewPlantPage() {
   }, [actionData]);
 
   return (
-    <Form
-      method="post"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        width: "100%",
-      }}
-    >
+    <Form method="post">
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Name: </span>
-          <input
-            ref={nameRef}
-            data-testid="name"
+          <Input
             name="name"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.name ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.name ? "name-error" : undefined
-            }
+            ref={nameRef}
+            invalid={actionData?.errors?.name ? true : undefined}
+            error={actionData?.errors?.name ? "name-error" : undefined}
           />
         </label>
         {actionData?.errors?.name && (
@@ -104,15 +94,11 @@ export default function NewPlantPage() {
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Location: </span>
-          <input
-            ref={locationRef}
-            data-testid="location"
+          <Input
             name="location"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.location ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.location ? "location-error" : undefined
-            }
+            ref={locationRef}
+            invalid={actionData?.errors?.location ? true : undefined}
+            error={actionData?.errors?.location ? "location-error" : undefined}
           />
         </label>
         {actionData?.errors?.location && (
@@ -125,16 +111,14 @@ export default function NewPlantPage() {
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Purchased At: </span>
-          <input
-            ref={purchasedAtRef}
-            data-testid="purchasedAt"
-            type="date"
+          <Input
             name="purchasedAt"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.purchasedAt ? true : undefined}
-            aria-errormessage={
+            ref={purchasedAtRef}
+            invalid={actionData?.errors?.purchasedAt ? true : undefined}
+            error={
               actionData?.errors?.purchasedAt ? "purchasedAt-error" : undefined
             }
+            type="date"
           />
         </label>
         {actionData?.errors?.purchasedAt && (
@@ -143,14 +127,8 @@ export default function NewPlantPage() {
           </div>
         )}
       </div>
-
       <div className="text-right">
-        <button
-          type="submit"
-          className="rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-        >
-          Save
-        </button>
+        <Button text="Save" submit={true} />
       </div>
     </Form>
   );

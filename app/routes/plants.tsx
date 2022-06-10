@@ -4,6 +4,7 @@ import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
 import { requireUserId } from "~/session.server";
 import { getPlantListItems } from "~/models/plant.server";
+import { Button } from "~/components/Button";
 
 type LoaderData = {
   plantListItems: Awaited<ReturnType<typeof getPlantListItems>>;
@@ -25,12 +26,7 @@ export default function PlantsPage() {
           <Link to=".">Plants</Link>
         </h1>
         <Form action="/logout" method="post">
-          <button
-            type="submit"
-            className="rounded bg-green-600 py-2 px-4 text-blue-100 hover:bg-green-500 active:bg-green-400"
-          >
-            Logout
-          </button>
+          <Button text="Logout" submit={true} />
         </Form>
       </header>
 

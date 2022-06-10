@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { format, formatDistance } from "date-fns";
+import { format } from "date-fns";
 
 import type { Plant } from "~/models/plant.server";
 import { deletePlant } from "~/models/plant.server";
@@ -10,6 +10,8 @@ import { getPlant } from "~/models/plant.server";
 import { getWateringListItems } from "~/models/watering.server";
 import { getFeedingListItems } from "~/models/feeding.server";
 import { requireUserId } from "~/session.server";
+import { Button } from "~/components/Button";
+import { PlantItemList } from "~/components/PlantItemList";
 
 type LoaderData = {
   plant: Plant;
@@ -60,77 +62,20 @@ export default function PlantDetailsPage() {
         {format(new Date(data.plant.purchasedAt), "dd/MM/yyyy")}
       </p>
       <div className="my-2 flex">
-        <div className="mr-5 rounded bg-blue-900 px-5 py-2 text-white lg:w-1/3">
-          <p>
-            <strong>💦 Waterings:</strong>{" "}
-          </p>
-          <ul>
-            {data.wateringListItems.length
-              ? data.wateringListItems.map((watering) => (
-                  <li key={watering.id}>
-                    <span className="mr-1">
-                      {formatDistance(
-                        new Date(watering.wateredDate),
-                        new Date(),
-                        { addSuffix: true }
-                      )}
-                    </span>
-                    <span>
-                      ({format(new Date(watering.wateredDate), "dd/MM/yyyy")})
-                    </span>
-                  </li>
-                ))
-              : "No waterings logged for this plant."}
-          </ul>
-        </div>
-        <div className="rounded bg-green-900 px-5 py-2 text-white lg:w-1/3">
-          <p>
-            <strong>💩 Feedings:</strong>{" "}
-          </p>
-          <ul>
-            {data.feedingListItems.length
-              ? data.feedingListItems.map((feeding) => (
-                  <li key={feeding.id}>
-                    <span className="mr-1">
-                      {formatDistance(new Date(feeding.fedDate), new Date(), {
-                        addSuffix: true,
-                      })}
-                    </span>
-                    <span>
-                      ({format(new Date(feeding.fedDate), "dd/MM/yyyy")})
-                    </span>
-                  </li>
-                ))
-              : "No feedings logged for this plant."}
-          </ul>
-        </div>
+        <PlantItemList type="Waterings" list={data.wateringListItems} />
+        <PlantItemList type="Feedings" list={data.feedingListItems} />
       </div>
 
       <hr className="my-4" />
       <div className="flex">
         <Link to={`./add-watering`}>
-          <button
-            className="mr-2 rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-            data-testid="addWatering"
-          >
-            Add Watering
-          </button>
+          <Button text="Add Watering" testId="addWatering" />
         </Link>
         <Link to={`./add-feeding`}>
-          <button
-            className="mr-2 rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-            data-testid="addFeeding"
-          >
-            Add Feeding
-          </button>
+          <Button text="Add Feeding" testId="addFeeding" />
         </Link>
         <Form method="post">
-          <button
-            type="submit"
-            className="rounded bg-red-500  py-2 px-4 text-white hover:bg-red-600 focus:bg-red-400"
-          >
-            Delete
-          </button>
+          <Button text="Delete" submit={true} />
         </Form>
       </div>
       <Outlet />

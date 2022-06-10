@@ -5,11 +5,13 @@ import type {
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
-import * as React from "react";
+import { useEffect, useRef } from "react";
 
 import { createUserSession, getUserId } from "~/session.server";
 import { verifyLogin } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
+import { Input } from "~/components/Input";
+import { Button } from "~/components/Button";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -79,10 +81,10 @@ export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/plants";
   const actionData = useActionData() as ActionData;
-  const emailRef = React.useRef<HTMLInputElement>(null);
-  const passwordRef = React.useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (actionData?.errors?.email) {
       emailRef.current?.focus();
     } else if (actionData?.errors?.password) {
@@ -102,17 +104,14 @@ export default function LoginPage() {
               Email address
             </label>
             <div className="mt-1">
-              <input
-                ref={emailRef}
-                id="email"
-                required
-                autoFocus={true}
+              <Input
                 name="email"
+                ref={emailRef}
+                invalid={actionData?.errors?.email ? true : undefined}
+                error={actionData?.errors?.email ? "email-error" : undefined}
                 type="email"
-                autoComplete="email"
-                aria-invalid={actionData?.errors?.email ? true : undefined}
-                aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                autoFocus={true}
+                required={true}
               />
               {actionData?.errors?.email && (
                 <div className="pt-1 text-red-700" id="email-error">
@@ -130,15 +129,15 @@ export default function LoginPage() {
               Password
             </label>
             <div className="mt-1">
-              <input
-                id="password"
-                ref={passwordRef}
+              <Input
                 name="password"
+                ref={passwordRef}
+                invalid={actionData?.errors?.password ? true : undefined}
+                error={
+                  actionData?.errors?.password ? "password-error" : undefined
+                }
                 type="password"
-                autoComplete="current-password"
-                aria-invalid={actionData?.errors?.password ? true : undefined}
-                aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                required={true}
               />
               {actionData?.errors?.password && (
                 <div className="pt-1 text-red-700" id="password-error">
@@ -149,12 +148,7 @@ export default function LoginPage() {
           </div>
 
           <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button
-            type="submit"
-            className="w-full rounded bg-green-500  py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400"
-          >
-            Log in
-          </button>
+          <Button text="Log In" submit={true} />
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input

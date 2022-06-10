@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react";
+import { Button } from "~/components/Button";
 
 import { useOptionalUser } from "~/utils";
 
@@ -15,25 +16,19 @@ export default function Index() {
       </div>
       <div>
         {user ? (
-          <Link
-            to="/plants"
-            className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-green-700 shadow-sm hover:bg-yellow-50 sm:px-8"
-          >
-            View Plants for {user.email}
+          <Link to="/plants">
+            <Button
+              text={`View Plants for 
+          ${user.email}`}
+            />
           </Link>
         ) : (
           <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-            <Link
-              to="/join"
-              className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-green-700 shadow-sm hover:bg-yellow-50 sm:px-8"
-            >
-              Sign up
+            <Link to="/join">
+              <Button text="Sign up" />
             </Link>
-            <Link
-              to="/login"
-              className="flex items-center justify-center rounded-md bg-green-500 px-4 py-3 font-medium text-white hover:bg-green-600  "
-            >
-              Log In
+            <Link to="/login">
+              <Button text="Log In" />
             </Link>
           </div>
         )}
